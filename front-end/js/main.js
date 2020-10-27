@@ -1,5 +1,9 @@
 let index = 0;
 let indexRole = 0;
+let indexCert = 0;
+let indexStud = 0;
+let indexLang = 0;
+let alineat = 20;
 (function ($) {
     "use strict";
 
@@ -60,7 +64,7 @@ let indexRole = 0;
 
         $(thisAlert).addClass('alert-validate');
 
-        $(thisAlert).append('<span class="btn-hide-validate">&#xf136;</span>')
+    //    $(thisAlert).append('<span class="btn-hide-validate">&#xf136;</span>')
         $('.btn-hide-validate').each(function(){
             $(this).on('click',function(){
                hideValidate(this);
@@ -87,20 +91,33 @@ let indexRole = 0;
 
 })(jQuery);
 
-document.getElementById('btn-cv').addEventListener('click', () => {
-    if (index === 0) {
-        console.log(document.getElementById(`company`).value);
-    } else {
-        console.log(document.getElementById(`company`).value);
-        console.log(document.getElementById(`company${index}`).value);
+document.getElementById('btn-cv').addEventListener('click', (e) => {
+    e.preventDefault();
+    var doc = new jsPDF('p', 'mm', 'a4');
+    var img = new Image();
+    var width = doc.internal.pageSize.width;
+    var height = doc.internal.pageSize.height;
+    img.src = "../images/logo.png";
+    img.onload = function () {
+        doc.addImage(img, 'png', alineat, 0, 60, 55);
+        doc.setFontSize(14);
+        doc.setFont('sans-serif');
+        doc.setFontStyle('bold');
+        var strArr = doc.splitTextToSize(document.getElementById('message').value, width - alineat - 10);
+        doc.text(strArr, alineat, 50);
+        doc.save('output.pdf')
+        
     }
+   
+
 })
 
-document.getElementById('btn-comp').addEventListener('click', () => {
+document.getElementById('btn-comp').addEventListener('click', (e) => {
+    e.preventDefault();
     var compDiv = document.querySelector('.company-container');
     index++;
     var template = `<div class="container-all">
-                    <p>Company ${index}</p>
+                    <h6><strong>Company ${index}</strong></h6>
                     <div class="wrap-input100">
 					<input id="company${index}" class="input100" type="text" name="email" placeholder="Company">
 					<span class="focus-input100"></span>
@@ -145,16 +162,16 @@ document.getElementById('btn-comp').addEventListener('click', () => {
             </div>
             `;
     compDiv.insertAdjacentHTML('afterbegin', template)
-
 })
 
 window.addEventListener('click', (e) => {
+    e.preventDefault();
     if (e.target.matches('#btn-role')) {
         var compDiv = e.target.closest('.container-all');
         console.log(compDiv);
     indexRole++;
     var template = `<div class="wrap-input100">
-					<input id="role" class="input100" type="text" name="role" placeholder="Role">
+					<input id="role${indexRole}" class="input100" type="text" name="role" placeholder="Role">
 					<span class="focus-input100"></span>
 					<label class="label-input100" for="company">
 						<span class="lnr lnr-pushpin m-b-5"></span>
@@ -164,16 +181,81 @@ window.addEventListener('click', (e) => {
     compDiv.insertAdjacentHTML('beforeEnd', template);
     }
 })
-// document.getElementById('btn-role').addEventListener('click', (e) => {
-//            var compDiv = document.querySelector('.company-container');
-//     indexRole++;
-//     var template = `	<div class="wrap-input100">
-// 					<input id="role" class="input100" type="text" name="role" placeholder="Role">
-// 					<span class="focus-input100"></span>
-// 					<label class="label-input100" for="company">
-// 						<span class="lnr lnr-pushpin m-b-5"></span>
-// 					</label>
-//                 </div>`
+
+document.getElementById('btn-cert').addEventListener('click', (e) => {
+    e.preventDefault();
+    var certDiv = document.querySelector('.other-container');
+    indexCert++;
+    var template = `<div class="wrap-input100">
+					<input id="cert${indexCert}" class="input100" type="text" name="cert${indexCert}" placeholder="Certification#${indexCert}">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="company">
+						<span class="lnr lnr-license m-b-5"></span>
+					</label>
+                </div>`
+    certDiv.insertAdjacentHTML('beforeEnd', template);
+
+})
+
+document.getElementById('btn-stud').addEventListener('click', (e) => {
+    e.preventDefault();
+    var certDiv = document.querySelector('.studies-container');
+    indexStud++;
+    var template = `<div class="container-stud">
+                    <div class="wrap-input100">
+					<input id="stud${indexStud}" class="input100" type="text" name="stud${indexStud}" placeholder="University#${indexStud}">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="stud${indexStud}">
+						<span class="lnr lnr-graduation-hat m-b-5"></span>
+					</label>
+                </div>
+                 <div class="wrap-input100">
+					<input id="faculty" class="input100" type="text" name="faculty" placeholder="Faculty">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="faculty">
+						<span class="lnr lnr-graduation-hat m-b-5"></span>
+					</label>
+                </div>
+                <div class="wrap-input100">
+					<input id="start-year" class="input100" type="text" name="start-year" placeholder="Start Year">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="start-year">
+						<span class="lnr lnr-calendar-full m-b-5"></span>
+					</label>
+                </div>
+                <div class="wrap-input100">
+					<input id="end-year" class="input100" type="text" name="end-year" placeholder="End Year">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="end-year">
+						<span class="lnr lnr-calendar-full m-b-5"></span>
+					</label>
+                </div>
+                 <div class="wrap-input100">
+					<input id="degree" class="input100" type="text" name="degree" placeholder="Degree">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="degree">
+						<span class="lnr lnr-license m-b-5"></span>
+					</label>
+                </div>
+            </div>
+            `
     
-//     compDiv.insertAdjacentHTML('afterend', template);
-// })
+    certDiv.insertAdjacentHTML('beforeEnd', template);
+    
+})
+
+document.getElementById('btn-lang').addEventListener('click', (e) => {
+    e.preventDefault();
+    var langDiv = document.querySelector('.lang-container');
+    indexLang++;
+    var template = ``
+
+})
+
+ function createPDF(){
+           var doc = new jsPDF();
+           doc.text(document.getElementById('message').value, 10, 10);
+
+           //
+           doc.save('output.pdf')
+        }

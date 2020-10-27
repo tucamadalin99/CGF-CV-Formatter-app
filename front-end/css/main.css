@@ -613,6 +613,13 @@ textarea.input100 {
   .wrap-contact100 {
     width: 100%;
   }
+
+  .btn-role {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left: 0px;
+  }
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -655,4 +662,11 @@ textarea.input100 {
 .btn-role {
   position: relative;
   right: 80px;
+}
+
+.btn-cert {
+  display: flex;
+  justify-content: center;
+  /* position: relative;
+  right: 80px; */
 }
