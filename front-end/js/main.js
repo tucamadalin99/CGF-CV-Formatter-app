@@ -93,6 +93,10 @@ let alineat = 20;
 
 document.getElementById('btn-cv').addEventListener('click', (e) => {
     e.preventDefault();
+    let lMarg = 15;
+    let rMarg = 15;
+    let pdfInMM = 210;
+    let pageCenter = pdfInMM / 2;
     var doc = new jsPDF('p', 'mm', 'a4');
     var img = new Image();
     var width = doc.internal.pageSize.width;
@@ -100,12 +104,26 @@ document.getElementById('btn-cv').addEventListener('click', (e) => {
     img.src = "../images/logo.png";
     img.onload = function () {
         doc.addImage(img, 'png', alineat, 0, 60, 55);
-        doc.setFontSize(14);
+        doc.setFontSize(18);
         doc.setFont('sans-serif');
+        doc.text(document.getElementById('job').value, alineat + 65, 37);
         doc.setFontStyle('bold');
-        var strArr = doc.splitTextToSize(document.getElementById('message').value, width - alineat - 10);
+        doc.setFontSize(14);
+        let descriptionDim = doc.getTextDimensions(document.getElementById('message').value);
+        var strArr = doc.splitTextToSize(document.getElementById('message').value, (pdfInMM - lMarg - rMarg));
         doc.text(strArr, alineat, 50);
-        doc.save('output.pdf')
+        let height = 30;
+        let companyDescH = 70;
+        for (let i = 1; i <= index; i++){
+            doc.text(document.getElementById(`company${i}`).value + ', ', alineat, descriptionDim.h + 20 * i);
+            let companyTxtWidth = doc.getTextWidth(document.getElementById(`company${i}`).value);
+            doc.text(document.getElementById(`city${i}`).value, alineat + companyTxtWidth + 3, descriptionDim.h + 20 * i);
+            doc.text(document.getElementById(`start-date${i}`).value, alineat, descriptionDim.h + height)
+            doc.text('Company description: ', alineat, descriptionDim.h + 70);
+            height += 20;
+
+        }
+        doc.save('output.pdf');
         
     }
    
@@ -123,6 +141,20 @@ document.getElementById('btn-comp').addEventListener('click', (e) => {
 					<span class="focus-input100"></span>
 					<label class="label-input100" for="company">
 						<span class="lnr lnr-apartment m-b-5"></span>
+					</label>
+                </div>
+                <div class="wrap-input100">
+					<input id="city${index}" class="input100" type="text" name="email" placeholder="City">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="company">
+						<span class="lnr lnr-earth m-b-5"></span>
+					</label>
+                </div>
+                  <div class="wrap-input100">
+					<input id="job${index}" class="input100" type="text" name="job" placeholder="Job title">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="company">
+						<span class="lnr lnr-briefcase m-b-5"></span>
 					</label>
                 </div>
                 <div class="wrap-input100">
@@ -153,7 +185,7 @@ document.getElementById('btn-comp').addEventListener('click', (e) => {
 					</button>
 				</div>
                 <div class="wrap-input100">
-					<input id="role" class="input100" type="text" name="role" placeholder="Role">
+					<input id="role" class="input100 roles" type="text" name="role" placeholder="Role">
 					<span class="focus-input100"></span>
 					<label class="label-input100" for="company">
 						<span class="lnr lnr-pushpin m-b-5"></span>
