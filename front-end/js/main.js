@@ -248,7 +248,37 @@ document.getElementById('btn-lang').addEventListener('click', (e) => {
     e.preventDefault();
     var langDiv = document.querySelector('.lang-container');
     indexLang++;
-    var template = ``
+    var template = `
+        <div class="lang-container">
+                    <div class="wrap-input100">
+					<input id="lang${indexLang}" class="input100" type="text" name="lang${indexLang}" placeholder="Language#${indexLang}">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="stud${indexStud}">
+						<span class="lnr lnr-graduation-hat m-b-5"></span>
+					</label>
+                </div>
+                 <div class="wrap-input100">
+					<input id="wirting" class="input100" type="text" name="writing" placeholder="Writing">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="faculty">
+						<span class="lnr lnr-graduation-hat m-b-5"></span>
+					</label>
+                </div>
+                <div class="wrap-input100">
+					<input id="speaking" class="input100" type="text" name="speaking" placeholder="Speaking">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="start-year">
+						<span class="lnr lnr-calendar-full m-b-5"></span>
+					</label>
+                </div>
+                <div class="wrap-input100">
+					<input id="proficiency" class="input100" type="text" name="proficiency" placeholder="Proficiency">
+					<span class="focus-input100"></span>
+					<label class="label-input100" for="end-year">
+						<span class="lnr lnr-calendar-full m-b-5"></span>
+					</label>
+                </div>`
+            langDiv.insertAdjacentHTML('beforeEnd', template);
 
 })
 
