@@ -5,4 +5,4 @@ App for CGF-Bucharest for formatting CV
 - cd to back-end and type in the terminal npm install
 - Wait for the dependencies to install
 - Type npm start or install nodemon globally by typing npm install -g nopdemon and start by nodemon
-- Access localhost:8080 in the browser to open the app
+- Access localhost:8081 in the browser to open the app
