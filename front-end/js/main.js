@@ -184,7 +184,7 @@ document.getElementById('btn-cv').addEventListener('click', (e) => {
         let companyDiv = document.querySelector(`.container-all${i}`);
         dd.content.push({
             text: [
-                { text: '\n' + document.getElementById(`company${i}`).value, style: 'bold' },
+                { text: '\n\n\n' + document.getElementById(`company${i}`).value, style: 'bold' },
                 { text: ', ' + document.getElementById(`city${i}`).value, style: 'bold' },
                 { text: '\n' + document.getElementById(`start-date${i}`).value + ' - ', style: 'bold' },
                 { text: document.getElementById(`end-date${i}`).value, style: 'bold' },
